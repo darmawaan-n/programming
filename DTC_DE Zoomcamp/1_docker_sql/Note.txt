@@ -1,0 +1,45 @@
+docker run -it \
+    -e POSTGRES_USER="root" \
+    -e POSTGRES_PASSWORD="root" \
+    -e POSTGRES_DB="ny_taxi" \
+    -v /home/oman-f28/Learning/"DTC_DE Zoomcamp"/1_docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres:13
+
+-- below works
+docker run -it \
+    -e POSTGRES_USER="root" \
+    -e POSTGRES_PASSWORD="root" \
+    -e POSTGRES_DB="ny_taxi" \
+    -v "$PWD/ny_taxi_postgres_data":/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres:13
+
+-- To connect into PGAdmin
+docker run -it \
+    -p 8081:80 \
+    -e 'PGADMIN_DEFAULT_EMAIL=oman_superuser@oman.com' \
+    -e 'PGADMIN_DEFAULT_PASSWORD=!Oman1234' \
+    -d dpage/pgadmin4
+
+-- Make a network in docker so the postgresql and PGAdmin container can contact each other
+docker network create nw-postgre  --> "nw-postgre" is the name of our network
+
+-- To add a container to our network we use --network flag
+docker run -it \
+    -e POSTGRES_USER="root" \
+    -e POSTGRES_PASSWORD="root" \
+    -e POSTGRES_DB="ny_taxi" \
+    -v "$PWD/ny_taxi_postgres_data":/var/lib/postgresql/data \
+    -p 5432:5432 \    
+    --network=nw-postgre \
+    --name pg-database \
+    postgres:13
+
+docker run -it \
+    -p 8081:80 \
+    -e 'PGADMIN_DEFAULT_EMAIL=oman_superuser@oman.com' \
+    -e 'PGADMIN_DEFAULT_PASSWORD=!Oman1234' \
+    --network=nw-postgre \
+    --name pg-admin \
+    -d dpage/pgadmin4
