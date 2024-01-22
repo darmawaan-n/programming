@@ -43,3 +43,12 @@ docker run -it \
     --network=nw-postgre \
     --name pg-admin \
     -d dpage/pgadmin4
+
+-- To run the ingestion script
+python ingest_data.py \
+    --username=root \ 
+    --password=root \
+    --host=localhost \
+    --port=5432 \
+    --db=ny_taxi \
+    --table=yellow_taxi_data
