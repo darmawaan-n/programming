@@ -1,3 +1,7 @@
+-- to start a container (previously run container)
+> docker start pg-database
+> docker start pg-admin 
+
 docker run -it \
     -e POSTGRES_USER="root" \
     -e POSTGRES_PASSWORD="root" \
@@ -52,3 +56,6 @@ python ingest_data.py \
     --port=5432 \
     --db=ny_taxi \
     --table=yellow_taxi_data
+
+-- to Dockerize ingestion script (make sure that the ingestion script is successfuly run previously)
+docker build -f "$PWD/1_docker_sql/Dockerfile" -t taxi-data_ingest:v001 .
