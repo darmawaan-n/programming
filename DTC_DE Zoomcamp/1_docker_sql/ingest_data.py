@@ -3,7 +3,6 @@ import numpy as np
 from time import time
 from sqlalchemy import create_engine
 import argparse as ap
-import os
 
 def main(params):
     username = params.username

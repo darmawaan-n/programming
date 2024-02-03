@@ -49,13 +49,23 @@ docker run -it \
     -d dpage/pgadmin4
 
 -- To run the ingestion script
-python ingest_data.py \
+python 1_docker_sql/ingest_data.py \
     --username=root \ 
     --password=root \
     --host=localhost \
     --port=5432 \
     --db=ny_taxi \
-    --table=yellow_taxi_data
+    --table=yellow_taxi_data_dockerize
 
--- to Dockerize ingestion script (make sure that the ingestion script is successfuly run previously)
+-- to Dockerize ingestion script (make sure that the ingestion script is successfuly, previously, run)
 docker build -f "$PWD/1_docker_sql/Dockerfile" -t taxi-data_ingest:v001 .
+
+docker run -it \
+    --network=nw-postgre \
+    taxi-data_ingest:v001 \
+        --username=root \
+        --password=root \
+        --host=pg-database \
+        --port=5432 \
+        --db=ny_taxi \
+        --table=yellow_taxi_data_dockerize

@@ -1,6 +1,6 @@
 FROM python:3.9
 
-RUN pip install pandas sqlalchemy psycopg2
+RUN pip install pandas sqlalchemy psycopg2 pyarrow
 
 WORKDIR /app
 COPY $PWD/1_docker_sql/ingest_data.py ingest_data.py
