@@ -11,11 +11,21 @@ docker run -it \
     postgres:13
 
 -- below works
+- the statement below is for Lenovo Legion Laptop
 docker run -it \
     -e POSTGRES_USER="root" \
     -e POSTGRES_PASSWORD="root" \
     -e POSTGRES_DB="ny_taxi" \
     -v "$PWD/ny_taxi_postgres_data":/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres:13
+
+- the statement below is for Lenovo (Work) Laptop
+docker run -it \
+    -e POSTGRES_USER="root" \
+    -e POSTGRES_PASSWORD="root" \
+    -e POSTGRES_DB="ny_taxi" \
+    -v "$PWD/1_docker_sql/ny_taxi_postgres_data":/var/lib/postgresql/data \
     -p 5432:5432 \
     postgres:13
 
@@ -34,8 +44,8 @@ docker run -it \
     -e POSTGRES_USER="root" \
     -e POSTGRES_PASSWORD="root" \
     -e POSTGRES_DB="ny_taxi" \
-    -v "$PWD/ny_taxi_postgres_data":/var/lib/postgresql/data \
-    -p 5432:5432 \    
+    -v "$PWD/1_docker_sql/ny_taxi_postgres_data":/var/lib/postgresql/data \
+    -p 5432:5432 \
     --network=nw-postgre \
     --name pg-database \
     postgres:13
@@ -50,7 +60,7 @@ docker run -it \
 
 -- To run the ingestion script
 python 1_docker_sql/ingest_data.py \
-    --username=root \ 
+    --username=root \
     --password=root \
     --host=localhost \
     --port=5432 \
