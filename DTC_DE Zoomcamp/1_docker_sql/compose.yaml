@@ -17,3 +17,5 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=!Oman1234
     ports:
       - "8081:80"
+
+# How to run: docker compose -f {filepath to compose.yaml file} up -d
