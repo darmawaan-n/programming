@@ -1,0 +1,2 @@
+1. After defining GCS Resources, we need to plan the terraform file with this command -> terraform -chdir={path to terraform file} plan
+2. Then use this command to apply our plan to our GCS -> terraform -chdir={path to terraform file} apply
