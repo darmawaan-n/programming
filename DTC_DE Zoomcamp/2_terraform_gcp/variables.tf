@@ -1,6 +1,6 @@
 variable "credentials" {
   description = "My Credentials"
-  default     = "./keys/credentials.json"
+  default     = "./keys/terraform-runner_credentials.json"
   # default = "~/.config/gcloud/application_default_credentials.json"
 }
 
